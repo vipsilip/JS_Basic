@@ -258,16 +258,18 @@ console.log(findSecret('eaABFHsyUEYSJfrontJSKJSHend'));
 // Happy coding!
 
 function getFullName(firstName, lastName) {
-  if ((firstName === '' && lastName === '') || firstName === undefined || lastName === undefined)
-    return '';
-  const upperFirst = firstName[0].toUpperCase();
-  const lowerFirst = firstName.slice(1).toLowerCase();
-  const upperLast = lastName[0].toUpperCase();
-  const lowerLast = lastName.slice(1).toLowerCase();
-  return `${upperFirst}${lowerFirst} ${upperLast}${lowerLast}`;
+  if (firstName === '' && lastName === '') return '';
+  // const firstNameUpper = firstName[0].toUpperCase();
+  // const lastNameUpper = lastName[0].toUpperCase();
+  // const firstNameLower = firstName.slice(1).toLowerCase();
+  // const lastNameLower = lastName.slice(1).toLowerCase();
+  // return `${firstNameUpper}${firstNameLower} ${lastNameUpper}${lastNameLower}`.trim();
+  const fullName = `${firstName} ${lastName}`.trim();
+
+  return fullName;
 }
 console.log(getFullName('john', 'pHAm'));
-console.log(getFullName('Alice'));
 console.log(getFullName('Alice', ''));
 console.log(getFullName('', 'Nguyen'));
 console.log(getFullName('Bob', 'Tran'));
+console.log(getFullName('Alice'));
