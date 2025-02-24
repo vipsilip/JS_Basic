@@ -152,11 +152,122 @@ console.log(formatTime(4256));
 // Happy coding!
 
 function isSecureUrlV1(url) {
-  if (url === '') return '';
+  if (url === '') return false;
   //indexOf()
-  return url.indexOf('https') || url.indexOf('wss');
+  return url.indexOf('https') === 0 || url.indexOf('wss') === 0;
+}
+function isSecureUrlV1(url) {
+  if (url === '') return false;
+  //startsWith()
+  return url.startsWith('https') || url.startsWith('wss');
 }
 console.log(isSecureUrlV1('http://abc.com'));
 console.log(isSecureUrlV1('https://abc.com'));
 console.log(isSecureUrlV1('wss://abc.com'));
 console.log(isSecureUrlV1('ws://abc.com'));
+
+// Rút trích domain từ địa chỉ email
+// Viết hàm extractDomain(email) nhận vào địa chỉ email, trả về phần domain sau ký tự @
+
+// Ví dụ:
+
+// extractDomain('')  --> ''
+
+// extractDomain('alice@gmail.com')  --> 'gmail.com'
+
+// extractDomain('bob@abc.com') --> 'abc.com'
+
+// Viết hàm theo 2 hướng tiếp cận:
+
+// extractDomainV1(email) Sử dụng split
+
+// extractDomainV2(email) Sử dụng indexOf() và slice()
+
+// Happy coding!
+
+function extractDomainV1(email) {
+  if (email === '') return '';
+  //split
+  return email.split('@')[1];
+}
+
+function extractDomainV2(email) {
+  if (email === '') return '';
+  //indexOf va slice()
+  return email.slice(email.indexOf('@') + 1);
+}
+console.log(extractDomainV1(''));
+console.log(extractDomainV1('alice@gmail.com'));
+console.log(extractDomainV1('bob@abc.com'));
+
+// Truy tìm mật mã
+// Viết hàm findSecret(code) để tìm ra chuỗi mật mã với quy tắc như sau.
+
+// Bỏ đi các ký tự HOA trong code, chuỗi còn lại chính là mật mã cần tìm.
+
+// Lưu ý: không dùng hàm replaceAll() và không dùng regular expression (regexp)
+
+// Ví dụ:
+
+// findSecret('SUPERCODE') --> ''
+
+// findSecret('SUPERhelloCODE') --> 'hello'
+
+// findSecret('eaABFHsyUEYSJfrontJSKJSHend') --> 'easyfrontend'
+
+// Happy coding!
+
+// Lưu ý: được phép dùng vòng for để duyệt chuỗi trong bài này.
+
+function findSecret(code) {
+  if (code === '') return '';
+  let newCode = '';
+  for (i = 0; i < code.length; i++) {
+    // console.log(code[i]);
+    if (code[i] >= 'a' && code[i] <= 'z') newCode += code[i];
+  }
+  return newCode;
+}
+console.log(findSecret('SUPERCODE'));
+console.log(findSecret('SUPERhelloCODE'));
+console.log(findSecret('eaABFHsyUEYSJfrontJSKJSHend'));
+
+// Trả về full name khi biết first và last name
+// Viết hàm getFullName(firstName, lastName) nhận vào firstName và lastName và trả về chuỗi fullName.
+
+// Quy tắc để tạo chuỗi fullName như sau:
+
+// firstName và lastName là optional (có thể không có)
+
+// fullName không có khoảng trắng thừa ở đầu và cuối chuỗi
+
+// firstName và lastName cần phải viết hoa chữ cái đầu tiên, chữ cái còn lại là viết thường
+
+// Ví dụ:
+
+// getFullName('Alice') --> 'Alice'
+
+// getFullName('Alice', '') --> 'Alice'
+
+// getFullName('', 'Nguyen') --> 'Nguyen'
+
+// getFullName('Bob', 'Tran') --> 'Bob Tran'
+
+// getFullName('john', 'pHAm') --> 'John Pham'
+
+// Happy coding!
+
+function getFullName(firstName, lastName) {
+  if ((firstName === '' && lastName === '') || firstName === undefined || lastName === undefined)
+    return '';
+  const upperFirst = firstName[0].toUpperCase();
+  const lowerFirst = firstName.slice(1).toLowerCase();
+  const upperLast = lastName[0].toUpperCase();
+  const lowerLast = lastName.slice(1).toLowerCase();
+  return `${upperFirst}${lowerFirst} ${upperLast}${lowerLast}`;
+}
+console.log(getFullName('john', 'pHAm'));
+console.log(getFullName('Alice'));
+console.log(getFullName('Alice', ''));
+console.log(getFullName('', 'Nguyen'));
+console.log(getFullName('Bob', 'Tran'));
