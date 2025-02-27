@@ -11,4 +11,4 @@ Array.prototype.every2 = function (callBackFn) {
   return true;
 };
 const arr = [1, 3, 6];
-console.log(arr.every2((x, i, array) => ));
+console.log(arr.every2((x, i, array) => x > 0));
