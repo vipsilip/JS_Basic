@@ -256,20 +256,23 @@ console.log(findSecret('eaABFHsyUEYSJfrontJSKJSHend'));
 // getFullName('john', 'pHAm') --> 'John Pham'
 
 // Happy coding!
+function capitalize(str) {
+  if (str === '') return '';
+  const firstLetter = str.trim()[0].toUpperCase();
+  const remainingLetter = str.trim().slice(1).toLowerCase();
+  return `${firstLetter}${remainingLetter}`;
+}
 
 function getFullName(firstName, lastName) {
   if (firstName === '' && lastName === '') return '';
-  // const firstNameUpper = firstName[0].toUpperCase();
-  // const lastNameUpper = lastName[0].toUpperCase();
-  // const firstNameLower = firstName.slice(1).toLowerCase();
-  // const lastNameLower = lastName.slice(1).toLowerCase();
-  // return `${firstNameUpper}${firstNameLower} ${lastNameUpper}${lastNameLower}`.trim();
-  const fullName = `${firstName} ${lastName}`.trim();
-
-  return fullName;
+  if (firstName === '') return capitalize(lastName);
+  if (lastName === '' || lastName === undefined) return capitalize(firstName);
+  return `${capitalize(firstName)} ${capitalize(lastName)}`;
 }
 console.log(getFullName('john', 'pHAm'));
 console.log(getFullName('Alice', ''));
 console.log(getFullName('', 'Nguyen'));
 console.log(getFullName('Bob', 'Tran'));
 console.log(getFullName('Alice'));
+
+console.log('hai@gmail.com'.indexOf('@gmil.com') >= 0);
