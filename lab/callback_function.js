@@ -160,22 +160,3 @@ function filter(arr, callbackFn) {
   return newArr;
 }
 console.log(filter([1, 2, 3, 4, 5], (x, i) => i % 2 === 1));
-
-// _____________________bubbleSot__________________
-// [2, 7, 4, 9, 1]
-function bubbleSort(arr) {
-  if (!Array.isArray(arr)) return undefined;
-  let swap;
-  for (let i = arr.length - 1; i >= 0; i--) {
-    for (let j = 0; j < arr.length; j++) {
-      if (arr[j] > arr[j + 1]) {
-        swap = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = swap;
-      }
-    }
-  }
-  return arr;
-}
-console.log(bubbleSort([2, 7, 4, 9, 1]));
-console.log(bubbleSort([29, 10, 14, 37, 14]));
