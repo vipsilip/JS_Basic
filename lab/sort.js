@@ -48,3 +48,14 @@ function insertionSort(arr) {
 }
 console.log(insertionSort([2, 7, 4, 9, 1]));
 console.log(insertionSort([29, 10, 14, 37, 14]));
+
+function mergeSort(arr) {
+  const result = [];
+  let length =arr.length;
+  while(){
+
+  }
+  return result;
+}
+console.log(mergeSort([2, 7, 4, 9, 1, 5, 8, 0]));
+
