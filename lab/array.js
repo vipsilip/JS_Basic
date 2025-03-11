@@ -164,33 +164,33 @@ console.log(isPrime(4));
 
 // Happy coding!
 
-// function getDivisorList(n) {
-//   if (n < 1 || n > 1000) return [];
-//   const result = [];
-//   for (let i = 1; i <= n; i++) {
-//     if (n % i === 0) result.push(i);
-//   }
-//   return result;
-// }
-// console.log(getDivisorList(1));
-// console.log(getDivisorList(10));
-// console.log(getDivisorList(12));
+function getDivisorList(n) {
+  if (n < 1 || n > 1000) return [];
+  const result = [];
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) result.push(i);
+  }
+  return result;
+}
+console.log(getDivisorList(1));
+console.log(getDivisorList(10));
+console.log(getDivisorList(12));
 
-// //from - filter
-// function getDivisorList(n) {
-//   if (n < 1 || n > 1000) return [];
-//   return Array.from({ length: n }, (_, i) => i + 1).filter((value) => n % value === 0);
-// }
-// console.log(getDivisorList(1));
-// console.log(getDivisorList(10));
-// console.log(getDivisorList(12));
+//from - filter
+function getDivisorList(n) {
+  if (n < 1 || n > 1000) return [];
+  return Array.from({ length: n }, (_, i) => i + 1).filter((value) => n % value === 0);
+}
+console.log(getDivisorList(1));
+console.log(getDivisorList(10));
+console.log(getDivisorList(12));
 
 //from - foreach - sort
 function getDivisorList(n) {
   if (n < 1 || n > 1000) return [];
   const result = [];
   const sqrt = Math.sqrt(n);
-  const numberList = Array.from({ length: sqrt }, (_, i) => i + 1);
+  const numberList = Array.from({ length: n }, (_, i) => i + 1);
   numberList.forEach((x) => {
     if (n % x === 0) {
       sqrt === x ? result.push(x) : result.push(n / x);
