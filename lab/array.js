@@ -179,27 +179,201 @@ console.log(getDivisorList(12));
 //from - filter
 function getDivisorList(n) {
   if (n < 1 || n > 1000) return [];
-  return Array.from({ length: n }, (_, i) => i + 1).filter((value) => n % value === 0);
+  return Array.from({ length: n }, (_, i) => i + 1).filter((v) => n % v === 0);
 }
 console.log(getDivisorList(1));
 console.log(getDivisorList(10));
 console.log(getDivisorList(12));
 
 //from - foreach - sort
-function getDivisorList(n) {
+function getDivisorListV2(n) {
   if (n < 1 || n > 1000) return [];
   const result = [];
-  const sqrt = Math.sqrt(n);
-  const numberList = Array.from({ length: n }, (_, i) => i + 1);
+  const sqrt = Math.trunc(Math.sqrt(n));
+  const numberList = Array.from({ length: sqrt }, (_, i) => i + 1);
   numberList.forEach((x) => {
     if (n % x === 0) {
-      sqrt === x ? result.push(x) : result.push(n / x);
+      result.push(x);
+      if (n / x !== x) result.push(n / x);
     }
   });
   return result.sort((a, b) => a - b);
 }
 
-console.log(getDivisorList(64));
-console.log(getDivisorList(12));
-console.log(getDivisorList(1));
-console.log(getDivisorList(10));
+console.log(getDivisorListV2(64));
+console.log(getDivisorListV2(12));
+console.log(getDivisorListV2(1));
+console.log(getDivisorListV2(10));
+
+// Kiểm tra số hoàn hảo
+// Viết hàm isPerfectNumber(n) để kiểm tra n có phải là số hoàn hảo hay không?
+
+// Với n thoả điều kiện 1 < n < 1000
+
+// Trả về true nếu đúng, ngược lại trả về false
+
+// Số hoàn hảo là số mà tổng của tất cả ước số (không tính chính nó, tức từ 1 đến n - 1) bằng chính nó.
+
+// Ví dụ: 6 = 1 + 2 + 3 (như vậy 6 là một số hoàn hảo)
+
+// Gợi ý: không nhất thiết phải chạy tới (n - 1) để tìm ra tất cả các ước số của n
+
+function isDivisorNumber(n) {
+  const arrayList = [];
+  const sqrt = Math.trunc(Math.sqrt(n));
+  Array.from({ length: sqrt }, (_, i) => i + 1).forEach((x) => {
+    if (n % x === 0) {
+      arrayList.push(x);
+      if (n / x !== x) arrayList.push(n / x);
+    }
+  });
+  return arrayList.sort((a, b) => a - b);
+}
+function isPerfectNumber(n) {
+  if (typeof n !== 'number' || n <= 1 || n >= 1000) return false;
+  const numberList = isDivisorNumber(n);
+  numberList.pop();
+  return numberList.reduce((sum, x) => sum + x) === n;
+}
+
+function isPerfectNumber(n) {
+  if (typeof n !== 'number' || n <= 5 || n >= 1000) return false;
+  let sum = 1;
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      sum += i;
+      sum += n / i;
+    }
+  }
+  return sum === n;
+}
+
+// console.log(Math.sqrt(6));
+console.log(isPerfectNumber(6));
+console.log(isPerfectNumber(28));
+console.log(isPerfectNumber(64));
+console.log(isPerfectNumber(22));
+console.log(isPerfectNumber(12));
+console.log(isPerfectNumber(5));
+console.log(isPerfectNumber(100));
+console.log(isPerfectNumber(89));
+
+const number = [1, 2, 3];
+console.log(number.pop());
+console.log(number);
+
+// Biến đổi mảng với f(i) = f(i-1) + f(i + 1)
+// Viết hàm transformNumbers(numberList) để biến đổi các số hiện tại của mảng numberList thành các số mới theo công thức.
+
+// f(i) = f(i - 1) + f(i + 1) với i là index
+// Tạm dịch nôm na là phần tử ở vị trí i sẽ bằng tổng của 2 phần tử bên cạnh.
+
+// Trường hợp đầu mảng và cuối mảng sẽ bằng phần tử liền kề.
+
+// Trường hợp mảng có ít hơn một phần tử thì sẽ giữ nguyên, không biến đổi.
+
+// Lưu ý: mảng trả về là một mảng mới, không phải là mảng truyền vào nhé!
+
+// Ví dụ
+
+// transformNumbers([]) --> []
+
+// transformNumbers([1]) --> [1]
+
+// transformNumbers([5, 10]) --> [10, 5]
+
+// transformNumbers([2, 4, 6, 8]) --> [4, 8, 12, 6] chú thích bên dưới
+
+// Đặt mảng đầu vào là a, mảng trả về là b, ta có:
+
+// b[0] = a[1] = 4 (đầu mảng)
+
+// b[1] = a[0] + a[2] = 2 + 6 = 8
+
+// b[2] = a[1] + a[3] = 4 + 8 = 12
+
+// b[3] = a[2] = 6 (cuối mảng)
+
+// Viết hàm này theo 3 cách khác nhau:
+
+// Dùng for...i transformNumbersV1(numberList)
+
+// Dùng forEach() transformNumbersV2(numberList)
+
+// Dùng map() transformNumbersV3(numberList)
+
+// Happy coding!
+
+function transformNumbers(numberList) {
+  if (!Array.isArray(numberList)) return [];
+  if (numberList.length < 2) return [...numberList];
+  const result = [];
+  for (let i = 0; i < numberList.length; i++) {
+    if (i === 0) {
+      result.push(numberList[i + 1]);
+      continue; //bỏ qua những đoạn code phía dưới để nhảy tiếp vòng lặp
+    }
+    if (i === numberList.length - 1) {
+      result.push(numberList[i - 1]);
+      continue;
+    }
+    result.push(numberList[i - 1] + numberList[i + 1]);
+    // if (numberList[i - 1] === undefined) {
+    //   result[i] = 0 + numberList[i + 1];
+    //   continue;
+    // }
+    // if (numberList[i + 1] === undefined) {
+    //   result[i] = numberList[i - 1] + 0;
+    //   continue;
+    // }
+    // result[i] = numberList[i - 1] + numberList[i + 1];
+  }
+  return result;
+}
+
+function transformNumbers(numberList) {
+  if (numberList.length < 2) return [...numberList];
+  const result = [];
+  for (let i = 0; i < numberList.length; i++) {
+    result[i] = numberList[i - 1] + numberList[i + 1] || numberList[i - 1] || numberList[i + 1];
+  }
+  return result;
+}
+
+// forEach
+function transformNumbers(numberList) {
+  if (!Array.isArray(numberList)) return [];
+  if (numberList.length < 2) return [...numberList];
+  const result = [];
+  numberList.forEach((x, i) => {
+    // if (i === 0) result[i] = numberList[i + 1];
+    // if (i === numberList.length) result[i] = numberList[i - 1];
+    result[i] = numberList[i - 1] + numberList[i + 1] || numberList[i - 1] || numberList[i + 1];
+  });
+  return result;
+}
+
+//map
+function transformNumbers(numberList) {
+  if (!Array.isArray(numberList)) return [];
+  if (numberList.length < 2) return [...numberList];
+  return numberList.map((x, i) => {
+    const prevNum = numberList[i - 1] || 0;
+    const nextNum = numberList[i + 1] || 0;
+    return prevNum + nextNum;
+  });
+}
+
+function transformNumbers(numberList) {
+  if (numberList.length < 2) return [...numberList];
+
+  return numberList.map((_, i, numberList) => {
+    if (i === 0) return numberList[i + 1];
+    if (i === numberList.length - 1) return numberList[i - 1];
+    return numberList[i - 1] + numberList[i + 1];
+  });
+}
+console.log(transformNumbers([2, 4, 6, 8])); //[4,8,12,6]
+console.log(transformNumbers([10, 5]));
+console.log(transformNumbers([1]));
+console.log(transformNumbers([2, 4, 6])); //[4,8,4]
