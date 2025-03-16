@@ -535,3 +535,26 @@ console.log(isAllPerfectNumber([6, 28]));
 // calcAvgOfAllEvenNumbers([1, 2, 4, 8]) --> 5 vì có 3 số chẳn 2 + 4 + 8 = 14, trung bình cộng lấy 14 / 3 = 4.6(6), làm tròn thành 5
 
 // Happy coding!
+
+function calcAvgOfAllEvenNumbers(numberList) {
+  if (!Array.isArray(numberList) || numberList.length === 0 || numberList.every((x) => x % 2 === 1))
+    return 0;
+  let count = 0;
+  const avgNumber = numberList.reduce((sum, x) => {
+    // console.log(sum);
+    if (x % 2 === 0) {
+      sum += x;
+      count++;
+    }
+    return sum;
+  });
+  return Math.ceil(avgNumber / count);
+}
+console.log(calcAvgOfAllEvenNumbers([1, 2]));
+console.log(calcAvgOfAllEvenNumbers([1]));
+console.log(calcAvgOfAllEvenNumbers(1));
+console.log(calcAvgOfAllEvenNumbers([]));
+console.log(calcAvgOfAllEvenNumbers([1, 2, 4]));
+console.log(calcAvgOfAllEvenNumbers([1, 2, 4, 8]));
+
+console.log([1, 2, 3].reduce((sum, x) => sum + x));
