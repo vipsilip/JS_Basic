@@ -373,7 +373,165 @@ function transformNumbers(numberList) {
     return numberList[i - 1] + numberList[i + 1];
   });
 }
-console.log(transformNumbers([2, 4, 6, 8])); //[4,8,12,6]
+function transformNumbers(numberList) {
+  if (!Array.isArray(numberList) || numberList.length === 0) return [];
+  if (numberList.length === 1) return [...numberList];
+
+  const newList = [numberList[1]];
+  for (let i = 1; i < numberList.length - 1; i++) {
+    newList[i] = numberList[i - 1] + numberList[i + 1];
+  }
+  newList.push(numberList[numberList.length - 2]);
+
+  return newList;
+}
 console.log(transformNumbers([10, 5]));
+console.log(transformNumbers([2, 4, 6, 8])); //[4,8,12,6]
 console.log(transformNumbers([1]));
 console.log(transformNumbers([2, 4, 6])); //[4,8,4]
+
+// Kiểm tra mảng có chứa số nguyên tố không?
+// Viết hàm hasPrime(numberList) nhận vào là một mảng số nguyên dương.
+
+// Trả về true nếu có ít nhất một số nguyên tố, ngược lại trả về false.
+
+// Gợi ý: có thể tận dụng lại hàm kiểm tra số nguyên tố đã làm ở bài tập trước đó.
+
+// Viết bằng 5 cách khác nhau:
+
+// Sử dụng for...i hasPrimeV1(numberList)
+
+// Sử dụng forEach() hasPrimeV2(numberList)
+
+// Sử dụng find() hasPrimeV3(numberList)
+
+// Sử dụng findIndex() hasPrimeV4(numberList)
+
+// Sử dụng some() hasPrimeV5(numberList)
+
+// Happy coding!
+
+function findPrime(n) {
+  if (n < 4) return true;
+  const sqrt = Math.trunc(Math.sqrt(n));
+  const numberList = Array.from({ length: sqrt }, (_, i) => i + 1);
+  for (let i = 1; i < numberList.length; i++) {
+    if (n % numberList[i] === 0) return false;
+  }
+  return true;
+}
+//for...i
+// function hasPrimeV1(numberList) {
+//   for (let i = 0; i < numberList.length; i++) {
+//     return findPrime(numberList[i]);
+//   }
+//   return false;
+// }
+// //forEach
+function hasPrimeV1(numberList) {
+  let result = false;
+  numberList.forEach((x) => (result += findPrime(x)));
+  return result > 0 ? true : false;
+}
+
+//find
+function hasPrimeV1(numberList) {
+  return numberList.find((x) => findPrime(x)) > 0 ? true : false;
+}
+//findIndex
+function hasPrimeV1(numberList) {
+  return numberList.findIndex((x) => findPrime(x)) >= 0 ? true : false;
+}
+//some
+function hasPrimeV1(numberList) {
+  return numberList.some((x) => findPrime(x));
+}
+
+console.log(hasPrimeV1([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+console.log(hasPrimeV1([4, 6, 8, 9, 10]));
+
+// Kiểm tra mảng có phải tất cả đều là số hoàn hảo không?
+// Viết hàm isAllPerfectNumbers(numberList) nhận vào mảng số nguyên dương.
+
+// Trả về true nếu tất cả đều là số hoàn hảo, ngược lại trả về false.
+
+// Ví dụ:
+
+// isAllPerfectNumbers([]) --> false
+
+// isAllPerfectNumbers([1, 6]) --> false vì 1 không phải là số hoàn hảo
+
+// isAllPerfectNumbers([1, 2, 3]) --> false
+
+// isAllPerfectNumbers([6]) --> true vì 6 là số hoàn hảo
+
+// isAllPerfectNumbers([6, 28]) --> true vì 6 và 28 đều là số hoàn hảo
+
+// Viết hàm bằng 3 cách khác nhau:
+
+// isAllPerfectNumbersV1(numberList) Sử dụng for...i với cách tiếp cận là return false nếu phát hiện có một số ko phải là số hoàn hảo.
+
+// isAllPerfectNumbersV2(numberList) Sử dụng reduce() với cách tiếp cận là đếm số lượng số hoàn hảo, nếu nó bằng với length của array, nếu bằng thì return true, ngược lại return false
+
+// isAllPerfectNumbersV3(numberList) Sử dụng every()
+function isPerfectNumber(n) {
+  const sqrt = Math.trunc(Math.sqrt(n));
+  const result = [];
+  Array.from({ length: sqrt }, (_, i) => i + 1).forEach((x) => {
+    if (n % x === 0) {
+      result.push(x);
+      if (n / x !== x) result.push(n / x);
+    }
+  });
+  result.sort((a, b) => a - b).pop();
+  return result.reduce((sum, x) => sum + x, 0) === n ? true : false;
+}
+//for...i
+// function isAllPerfectNumber(numberList) {
+//   if (!Array.isArray(numberList) || numberList.length === 0) return false;
+//   for (let i = 0; i < numberList.length; i++) {
+//     if (!isPerfectNumber(numberList[i])) return false;
+//   }
+//   return true;
+// }
+//reduce
+function isAllPerfectNumber(numberList) {
+  if (!Array.isArray(numberList) || numberList.length === 0) return false;
+  const total = numberList.reduce((sum, x) => {
+    if (isPerfectNumber(x)) sum++;
+    return sum;
+  }, 0);
+  return total === numberList.length ? true : false;
+}
+//every
+// function isAllPerfectNumber(numberList) {
+//   if (!Array.isArray(numberList) || numberList.length === 0) return false;
+//   return numberList.every((x) => isPerfectNumber(x));
+// }
+console.log(isAllPerfectNumber([6]));
+console.log(isAllPerfectNumber([]));
+console.log(isAllPerfectNumber([1, 6]));
+console.log(isAllPerfectNumber([6, 1, 2, 3]));
+console.log(isAllPerfectNumber([6, 28]));
+// -------------------------------------------------------------------------------------------------
+
+// Tính trung bình cộng của các số chẳn trong mảng
+// Viết hàm calcAvgOfAllEvenNumbers(numberList) nhận vào là một mảng số nguyên dương.
+
+// Trả về một con số duy nhất cho biết trung bình cộng của tất cả số sẵn có trong mảng, nếu kết quả là số thực thì làm tròn về số nguyên gần nhất.
+
+// Ví dụ:
+
+// calcAvgOfAllEvenNumbers(1) --> 0 vì dữ liệu đầu vào không hợp lệ
+
+// calcAvgOfAllEvenNumbers([]) --> 0
+
+// calcAvgOfAllEvenNumbers([1]) --> 0
+
+// calcAvgOfAllEvenNumbers([1, 2]) --> 2
+
+// calcAvgOfAllEvenNumbers([1, 2, 4]) --> 3 vì có 2 số chẳn 2 + 4 = 6, trung bình cộng lấy 6 / 2 = 3
+
+// calcAvgOfAllEvenNumbers([1, 2, 4, 8]) --> 5 vì có 3 số chẳn 2 + 4 + 8 = 14, trung bình cộng lấy 14 / 3 = 4.6(6), làm tròn thành 5
+
+// Happy coding!
