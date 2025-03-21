@@ -559,14 +559,14 @@ console.log(calcAvgOfAllEvenNumbers([1, 2, 4, 8]));
 
 console.log([1, 2, 3].reduce((sum, x) => sum + x));
 
-function reduce(arrList, initialValue) {
+function reduce(arrList, callbackFn, initialValue) {
   let accumalator = initialValue === undefined ? arrList[0] : initialValue;
   const currentIndex = initialValue === undefined ? 1 : 0;
   for (let i = currentIndex; i < arrList.length; i++) {
-    accumalator = accumalator + arrList[i];
+    accumalator = callbackFn(accumalator, arrList[i]);
   }
   return accumalator;
 }
-console.log(reduce([1, 2, 3]));
+console.log(reduce([1, 2, 3], (sum, x) => sum + x, 1));
 
 // nếu có initialValue => accumalator = initialValue, ngược lại accumalator = phần tử đầu tiên và chạy vòng lặp từ index 1;
