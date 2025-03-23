@@ -560,6 +560,10 @@ console.log(calcAvgOfAllEvenNumbers([1, 2, 4, 8]));
 console.log([1, 2, 3].reduce((sum, x) => sum + x));
 
 function reduce(arrList, callbackFn, initialValue) {
+  if (arrList.length === 0) {
+    if (initialValue === undefined) throw new Error('need initialValue');
+    return initialValue;
+  }
   let accumalator = initialValue === undefined ? arrList[0] : initialValue;
   const currentIndex = initialValue === undefined ? 1 : 0;
   for (let i = currentIndex; i < arrList.length; i++) {
@@ -567,6 +571,8 @@ function reduce(arrList, callbackFn, initialValue) {
   }
   return accumalator;
 }
-console.log(reduce([1, 2, 3], (sum, x) => sum + x, 1));
+console.log(reduce([1], (sum, x) => sum + x));
+console.log(reduce([], (sum, x) => sum + x, 10));
+console.log(reduce([], (sum, x) => sum + x));
 
 // nếu có initialValue => accumalator = initialValue, ngược lại accumalator = phần tử đầu tiên và chạy vòng lặp từ index 1;
