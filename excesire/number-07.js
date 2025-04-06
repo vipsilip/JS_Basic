@@ -9,12 +9,12 @@
 function reverseNumber(n) {
   //   const strReverse = n.toString().split('').reverse().join('');
   //   return n % 10 === 0 ? strReverse : Number(strReverse);
-    const str = n.toString();
-    let result = '';
-    for(let i=str.length-1; i>=0;i++){
-        result+= str[i];
-    }
-    return n%10===0?result:Number(result);
+  const str = n.toString();
+  let result = '';
+  for (let i = str.length - 1; i >= 0; i--) {
+    result += str[i];
+  }
+  return n % 10 === 0 ? result : Number(result);
 }
 
 //Number
