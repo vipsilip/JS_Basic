@@ -32,7 +32,7 @@ function reverseNumberV2(n) {
   for (let i = str.length - 1; i >= 0; i--) {
     result += str[i];
   }
-  return n % 10 === 0 ? result : Number(result);
+  return n % 10 === 0 ? result : +result;
 }
 
 export function isSymmetricNumberV2(n) {
@@ -48,5 +48,6 @@ export function isSymmetricNumberV2(n) {
 export function isSymmetricNumberV3(n) {
   if (n <= 10 || n >= 1000000) return false;
   const strReverse = n.toString().split('').reverse().join('');
-  return Number(strReverse) === n;
+  return +strReverse === n;
 }
+// +strReverse tương đương với Number(strReverse) => ép kiểu

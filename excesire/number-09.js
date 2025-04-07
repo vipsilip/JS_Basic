@@ -7,23 +7,30 @@
 // // hasTwoDigitsWithSum(11, 2) --> true
 export function hasTwoDigitsWithSum(n, sum) {
   if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
-  let sumOfDigits = 0;
-  let remaining = n;
-  let currentNumber = n % 10;
-  while (remaining > 0) {
-    sumOfDigits += currentNumber;
-    remaining = Math.trunc(remaining / 10);
-    currentNumber = remaining % 10;
+  let tempN = n;
+  while (tempN > 0) {
+    let curentDigit = tempN % 10;
+    let remaining = Math.trunc(tempN / 10);
+    let tempRemaining = remaining;
+    while (tempRemaining > 0) {
+      let prevDigit = tempRemaining % 10;
+      if (curentDigit + prevDigit === sum) return true;
+      tempRemaining = Math.trunc(tempRemaining / 10);
+    }
+    tempN = remaining;
   }
-  return sumOfDigits === sum;
+  return false;
 }
 
-export function hasTwoDigitsWithSumV2(n, sum) {
-  if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
-  const str = n.toString();
-  let sumOfDigits = 0;
-  for (let i = 0; i < str.length; i++) {
-    sumOfDigits += Number(str[i]);
-  }
-  return sumOfDigits === sum;
-}
+console.log(hasTwoDigitsWithSum(12345, 3));
+console.log(hasTwoDigitsWithSum(101, 3));
+
+// function hasTwoDigitsWithSumV2(n, sum) {
+//   if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
+//   const str = n.toString();
+//   let sumOfDigits = 0;
+//   for (let i = 0; i < str.length; i++) {
+//     sumOfDigits += +str[i];
+//   }
+//   return sumOfDigits === sum;
+// }

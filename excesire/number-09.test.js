@@ -17,15 +17,15 @@ describe('hasTwoDigitsWithSum', () => {
   });
   it('should return false when sum of two digits not equal initial number ', () => {
     expect(hasTwoDigitsWithSum(101, 3)).toBe(false);
-    expect(hasTwoDigitsWithSum(101, 1)).toBe(false);
+    expect(hasTwoDigitsWithSum(101, 5)).toBe(false);
     expect(hasTwoDigitsWithSum(59302, 10)).toBe(false);
-    expect(hasTwoDigitsWithSum(12345, 7)).toBe(false);
+    expect(hasTwoDigitsWithSum(12345, 2)).toBe(false);
   });
   it('should return true when sum of two digits equal initial number', () => {
     expect(hasTwoDigitsWithSum(101, 2)).toBe(true);
-    expect(hasTwoDigitsWithSum(123, 6)).toBe(true);
-    expect(hasTwoDigitsWithSum(56302, 16)).toBe(true);
-    expect(hasTwoDigitsWithSum(111, 3)).toBe(true);
+    expect(hasTwoDigitsWithSum(123, 5)).toBe(true);
+    expect(hasTwoDigitsWithSum(56302, 8)).toBe(true);
+    expect(hasTwoDigitsWithSum(111, 2)).toBe(true);
   });
 });
 
