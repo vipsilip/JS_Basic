@@ -22,3 +22,20 @@ export function isIncreasingNumberV2(n) {
   }
   return true;
 }
+//123
+export function isIncreasingNumberV3(n) {
+  if (n <= 0 || n >= 1000000) return false;
+  if (n < 10) return false;
+  let result = true;
+  const arrNumber = n.toString().split('').map(Number);
+  // return arrNumber.every((x, i) => {
+  //   if (i === 0) return true;
+  //   return x > arrNumber[i - 1];
+  // });
+
+  arrNumber.forEach((x, i) => {
+    if (i === 0) return;
+    if (x <= arrNumber[i - 1]) result = false;
+  });
+  return result;
+}

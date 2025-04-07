@@ -6,9 +6,27 @@
 // isSymetricNumber(10) --> false
 // isSymetricNumber(11) --> true
 // isSymetricNumber(12321) --> true
+
+//number
 function reverseNumber(n) {
-  //   const strReverse = n.toString().split('').reverse().join('');
-  //   return n % 10 === 0 ? strReverse : Number(strReverse);
+  let currentNumber = n % 10;
+  let remaining = n;
+  let result = 0;
+  while (remaining > 0) {
+    result = result * 10 + currentNumber;
+    remaining = Math.trunc(remaining / 10);
+    currentNumber = remaining % 10;
+  }
+  return result;
+}
+
+export function isSymmetricNumber(n) {
+  if (n <= 10 || n >= 1000000) return false;
+  return reverseNumber(n) === n;
+}
+
+//string
+function reverseNumberV2(n) {
   const str = n.toString();
   let result = '';
   for (let i = str.length - 1; i >= 0; i--) {
@@ -17,12 +35,6 @@ function reverseNumber(n) {
   return n % 10 === 0 ? result : Number(result);
 }
 
-//Number
-export function isSymmetricNumber(n) {
-  if (n <= 10 || n >= 1000000) return false;
-  return reverseNumber(n) === n ? true : false;
-}
-//string
 export function isSymmetricNumberV2(n) {
   if (n <= 10 || n >= 1000000) return false;
   const str = n.toString();
@@ -30,4 +42,11 @@ export function isSymmetricNumberV2(n) {
     if (str[i] !== str[str.length - 1 - i]) return false;
   }
   return true;
+}
+
+//array
+export function isSymmetricNumberV3(n) {
+  if (n <= 10 || n >= 1000000) return false;
+  const strReverse = n.toString().split('').reverse().join('');
+  return Number(strReverse) === n;
 }

@@ -28,13 +28,22 @@ export function isIncreasingNumberByDistance(n, x) {
 export function isIncreasingNumberByDistanceV2(n, x) {
   if (n <= 0 || n >= 1000000 || x <= 0 || x >= 5) return false;
   if (n < 10) return false;
-  const numberToArray = [...n.toString()].map(Number);
-  return numberToArray.slice(1).every((number, i) => number - numberToArray[i] === x);
+  const str = n.toString();
+  for (let i = 1; i < str.length; i++) {
+    if (Number(str[i]) - Number(str[i - 1]) !== x) return false;
+  }
+  return true;
 }
-
 console.log(isIncreasingNumberByDistanceV2(258, 3));
 console.log(isIncreasingNumberByDistanceV2(1, 1));
 console.log(isIncreasingNumberByDistanceV2(11, 1));
 console.log(isIncreasingNumberByDistanceV2(1223, 1));
 console.log(isIncreasingNumberByDistanceV2(123, 1));
 console.log(isIncreasingNumberByDistanceV2(135, 2));
+
+export function isIncreasingNumberByDistanceV3(n, x) {
+  if (n <= 0 || n >= 1000000 || x <= 0 || x >= 5) return false;
+  if (n < 10) return false;
+  const numberToArray = [...n.toString()].map(Number);
+  return numberToArray.slice(1).every((number, i) => number - numberToArray[i] === x);
+}
