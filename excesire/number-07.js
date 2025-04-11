@@ -45,9 +45,17 @@ export function isSymmetricNumberV2(n) {
 }
 
 //array
+// export function isSymmetricNumberV3(n) {
+//   if (n <= 10 || n >= 1000000) return false;
+//   const strReverse = n.toString().split('').reverse().join('');
+//   return +strReverse === n;
+// }
+
 export function isSymmetricNumberV3(n) {
   if (n <= 10 || n >= 1000000) return false;
-  const strReverse = n.toString().split('').reverse().join('');
-  return +strReverse === n;
+  const arrNumber = n.toString().split('');
+  const arrReverse = [...arrNumber].reverse();
+  return arrNumber.every((x, i) => x === arrReverse[i]);
 }
 // +strReverse tương đương với Number(strReverse) => ép kiểu
+console.log(isSymmetricNumberV3(12021));

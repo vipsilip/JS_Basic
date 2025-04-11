@@ -26,20 +26,20 @@ export function isDivisibleBy10V2(n) {
   return sum % 10 === 0;
 }
 
-// export function isDivisibleBy10V3(n) {
-//   if (n <= 0 || n >= 1000000) return false;
-//   const arrNumber = n.toString().split('').map(Number);
-//   return arrNumber.reduce((sum, number) => sum + number, 0) % 10 === 0 ? true : false;
-// }
-
 export function isDivisibleBy10V3(n) {
   if (n <= 0 || n >= 1000000) return false;
   const arrNumber = n.toString().split('').map(Number);
-  let sum = 0;
-  arrNumber.forEach((x, i) => {
-    sum += x;
-  });
-  return sum % 10 === 0;
+  return arrNumber.reduce((sum, number) => sum + number, 0) % 10 === 0;
 }
+
+// export function isDivisibleBy10V3(n) {
+//   if (n <= 0 || n >= 1000000) return false;
+//   const arrNumber = n.toString().split('').map(Number);
+//   let sum = 0;
+//   arrNumber.forEach((x, i) => {
+//     sum += x;
+//   });
+//   return sum % 10 === 0;
+// }
 console.log(isDivisibleBy10V3(1234));
 console.log(isDivisibleBy10V3(12));

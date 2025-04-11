@@ -4,7 +4,7 @@
 // Ví dụ:
 // hasTwoDigitsWithSum(10, 1) --> true vì 0 + 1 = 1
 // hasTwoDigitsWithSum(101, 3) --> false vì không có 2 chữ số nào cộng lại bằng 3
-// // hasTwoDigitsWithSum(11, 2) --> true
+// hasTwoDigitsWithSum(11, 2) --> true
 export function hasTwoDigitsWithSum(n, sum) {
   if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
   let tempN = n;
@@ -22,15 +22,19 @@ export function hasTwoDigitsWithSum(n, sum) {
   return false;
 }
 
-console.log(hasTwoDigitsWithSum(12345, 3));
-console.log(hasTwoDigitsWithSum(101, 3));
+export function hasTwoDigitsWithSumV2(n, sum) {
+  if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
+  const str = n.toString();
+  for (let i = 0; i < str.length - 1; i++) {
+    for (let j = 1; j < str.length; j++) {
+      if (+str[i] + +str[j] === sum) return true;
+    }
+  }
+  return false;
+}
 
-// function hasTwoDigitsWithSumV2(n, sum) {
-//   if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
-//   const str = n.toString();
-//   let sumOfDigits = 0;
-//   for (let i = 0; i < str.length; i++) {
-//     sumOfDigits += +str[i];
-//   }
-//   return sumOfDigits === sum;
-// }
+export function hasTwoDigitsWithSumV3(n, sum) {
+  if (n <= 9 || n >= 1000000 || sum <= 0 || sum >= 19) return false;
+  const arrNumber = n.toString().split('').map(Number);
+  return arrNumber.some((x, i) => arrNumber.slice(i + 1).some((y) => x + y === sum));
+}
