@@ -10,28 +10,29 @@
 // countURLs('my website is: https://ez.com you can visit it') --> 0 vì phần tên domain chỉ có 2 ký tự ez
 // nên không hợp lệ
 function checkDomain(str) {
-  const listValidProtocol = ['http://', 'https://', 'ws://', 'wss://'];
-  let protocol = '';
-  for (const p of listValidProtocol) {
-    if (str.startsWith(p) && protocol.length < p.length) protocol = p;
+  const listProtocols = ['http://', 'https://', 'ws://', 'wss://'];
+  const listSuffix = ['.com', '.vn', '.com.vn'];
+  let protocols = '';
+  let suffixs = '';
+  for (const protocol of listProtocols) {
+    if (str.startsWith(protocol) && protocols.length < protocol.length) protocols = protocol;
   }
-  if (!protocol) return false;
-
-  const pathName = str.slice(str.lastIndexOf('/'));
-  const remaining = str.slice(0, str.lastIndexOf(pathName));
-  const listValidDomain = ['.com', '.vn', '.com.vn'];
-  let domain = '';
-  for (const d of listValidDomain) {
-    if (remaining.endsWith(d) && domain.length < d.length) domain = d;
+  if (!protocols) return false;
+  let rest = str.slice(protocols.length);
+  ['.', ',', '!', '?'].forEach((x) => {
+    if (rest.slice(-1) === x) rest.slice(0, -1);
+  });
+  let domainName = '';
+  domainName = rest.includes('/') ? rest.slice(0, rest.indexOf('/')) : rest;
+  for (const suffix of listSuffix) {
+    if (domainName.endsWith(suffix) && suffixs.length < suffix.length) suffixs = suffix;
   }
-  if (!domain) return false;
-  const domainName = str.slice(-(str.length - protocol.length), str.indexOf(domain));
-  if (domainName.length < 3) return false;
+  if (!suffixs) return false;
+  const domain = domainName.slice(0, -suffixs.length);
+  if (domain.length < 3) return false;
   return true;
 }
-
-function countURLs(str) {
+export function countURLs(str) {
   if (str.length === 0 || typeof str !== 'string') return 0;
-  return str.split(' ').filter((valid) => checkDomain(valid)).length;
+  return str.split(' ').filter((word) => checkDomain(word)).length;
 }
-console.log(countURLs('http://ezfrontend.com'));

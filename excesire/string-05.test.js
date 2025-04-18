@@ -40,6 +40,11 @@ describe('countURLs(str)', () => {
     expect(countURLs('my website is: http://ezfrontend.com you can visit it ws://hai.vn')).toBe(2);
     expect(
       countURLs(
+        'Visit http://abc.com/test and https://longdomain.com.vn/path, but skip http://ab.com.',
+      ),
+    ).toBe(2);
+    expect(
+      countURLs(
         'my website is: http://ezfrontend.com you can https://abc.com.vn visit it wss://thanhhai.vn',
       ),
     ).toBe(3);
